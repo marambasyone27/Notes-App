@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/views/notes_view.dart';
 
 void main() {
   runApp(const NotesApp());
@@ -9,19 +10,13 @@ class NotesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notes'),
+    return MaterialApp(
+      title: 'Notes App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark
       ),
-      body: const Center(
-        child: Text('No notes yet!'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add new note
-        },
-        child: const Icon(Icons.add),
-      ),
+      home: const NotesView(), 
     );
   }
 }
