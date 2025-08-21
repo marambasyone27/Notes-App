@@ -19,6 +19,7 @@ class EditNotesViewBody extends StatelessWidget {
     title: 'Edit Note',
     customIcon: CustomIcon(icon: Icons.check),
         ),
+         SizedBox(height: 45),
         Padding(
     padding: const EdgeInsets.all(16),
     child: SingleChildScrollView(
