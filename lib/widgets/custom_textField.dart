@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/constants.dart';
 
 class CustomTextField extends StatelessWidget {
   CustomTextField({this.hintText,this.inputType, this.onChanged, this.obscureText = false, required int maxLines});
@@ -12,20 +13,26 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText!,
       onChanged: onChanged,
       keyboardType: inputType,
+      cursorColor: KPrimaryColor,
       decoration: InputDecoration(
+         focusedBorder: BuildBorder( KPrimaryColor),
         hintText: hintText,
         hintStyle: TextStyle(
-          color: Colors.greenAccent,
+          color: KPrimaryColor,
         ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(),
-          borderRadius: BorderRadius.circular(8),
-        ),
+        enabledBorder:BuildBorder(),
+        border: BuildBorder(),
       ),
     );
+  }
+
+  OutlineInputBorder BuildBorder([Color]) {
+    return OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Color?? Colors.white
+        ),
+        borderRadius: BorderRadius.circular(8),
+        
+      );
   }
 }
