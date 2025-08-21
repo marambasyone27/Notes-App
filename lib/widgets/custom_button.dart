@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/constants.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton({this.onTap, required this.text});
@@ -10,17 +11,18 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.green,
+          color: KPrimaryColor,
           borderRadius: BorderRadius.circular(8),
         ),
         width: double.infinity,
-        height: 60,
+        height: 55,
         child: Center(
           child: Text(
             text,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 18
+              fontSize: 20,
+              fontWeight: FontWeight.bold
             ),
           ),
         ),
