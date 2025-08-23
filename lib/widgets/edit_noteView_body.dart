@@ -7,7 +7,7 @@ class EditNotesViewBody extends StatelessWidget {
   const EditNotesViewBody({
     super.key,
   });
-
+   
   @override
   Widget build(BuildContext context) {
     return Padding(
