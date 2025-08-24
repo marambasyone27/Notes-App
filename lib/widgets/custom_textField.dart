@@ -15,12 +15,12 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText!,
       onChanged: onChanged,
       keyboardType: inputType,
-      cursorColor: KPrimaryColor,
+      cursorColor: kPrimaryColor,
       decoration: InputDecoration(
-         focusedBorder: BuildBorder( KPrimaryColor),
+         focusedBorder: BuildBorder( kPrimaryColor),
         hintText: hintText,
         hintStyle: TextStyle(
-          color: KPrimaryColor,
+          color: kPrimaryColor,
         ),
         enabledBorder:BuildBorder(),
         border: BuildBorder(),
