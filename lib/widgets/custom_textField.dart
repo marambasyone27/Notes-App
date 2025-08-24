@@ -3,15 +3,25 @@ import 'package:notes_app/constants.dart';
 
 // ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
-  CustomTextField({super.key, required this.hintText,this.inputType, this.onChanged, this.obscureText = false,  this.maxLines=1,});
+  CustomTextField({super.key, required this.hintText,this.inputType, this.onChanged, this.obscureText = false,  this.maxLines=1, this.onSaved,});
   Function(String)? onChanged;
  final String? hintText;
   TextInputType?  inputType;
   bool? obscureText;
    final int? maxLines;
+   final void Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      onSaved: onSaved,
+      validator: (value) {
+        if ( value?.isEmpty ?? true) {
+          return 'This field is required';
+        }
+        else {
+          return null;
+        }
+      },
       obscureText: obscureText!,
       onChanged: onChanged,
       keyboardType: inputType,
