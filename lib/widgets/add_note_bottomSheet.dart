@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/widgets/custom_button.dart';
-import 'package:notes_app/widgets/custom_textField.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:notes_app/cubits/add_noteCubit/notes_cubit.dart';
+import 'package:notes_app/widgets/add_note_form.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,58 +13,24 @@ class AddNoteBottomSheet extends StatelessWidget {
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: AddNoteForm(),
+          child: BlocConsumer<AddNotesCubit,AddNotesStates >(
+            listener: (context, state) {
+            if (state is NotesSuccessState){
+              Navigator.pop(context);
+            }
+            if(state is NotesFailureState){
+              print('Something went Wrong : ${state.errorMessage}');
+            }
+
+            },
+            builder: (context, state) {
+              return ModalProgressHUD(
+                inAsyncCall: state is NotesLoadingState ? true : false,
+              child:const AddNoteForm());
+            },
+          ),
         ),
       ),
     );
   }
 }
-
-class AddNoteForm extends StatefulWidget {
-  const AddNoteForm({
-    super.key,
-  });
-
-  @override
-  State<AddNoteForm> createState() => _AddNoteFormState();
-}
-
-class _AddNoteFormState extends State<AddNoteForm> {
-  final GlobalKey<FormState> formkey =GlobalKey();
-  AutovalidateMode autovalidateMode=AutovalidateMode.disabled;
-  String? title , subTitle;
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: formkey,
-      autovalidateMode: autovalidateMode,
-      child: Column(
-        children: [
-           const SizedBox(height: 32),
-          CustomTextField(hintText: 'Title' , onSaved: (value) {
-            title = value;
-          },),
-           SizedBox(height: 16),
-           CustomTextField(hintText: 'Content', maxLines: 5, onSaved: (value) {
-             subTitle = value;
-           },),
-          const SizedBox(height: 32),
-           CustomButton(text: 'Add' ,
-           onTap: () {
-             if (formkey.currentState!.validate()){
-              formkey.currentState!.save();
-             }
-             else{
-              setState(() {
-                autovalidateMode=AutovalidateMode.always;// افضل اتاكد ان اليوزر مدخل داتا ومظبوطه
-              });
-             }
-           },
-           ),
-           SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
-}
-
