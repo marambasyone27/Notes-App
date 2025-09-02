@@ -10,10 +10,6 @@ class AddNoteBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddNotesCubit(),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: BlocConsumer<AddNotesCubit, AddNotesStates>(
             listener: (context, state) {
               if (state is NotesSuccessState) {
@@ -24,13 +20,16 @@ class AddNoteBottomSheet extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              return ModalProgressHUD(
-                  inAsyncCall: state is NotesLoadingState ? true : false,
-                  child: SingleChildScrollView(child: const AddNoteForm()));
+              return AbsorbPointer(
+                absorbing: state is NotesLoadingState ? true : false,
+                child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: SingleChildScrollView(child: const AddNoteForm()),
+                ),
+              );
             },
           ),
-        ),
-      ),
+     
     );
   }
 }
